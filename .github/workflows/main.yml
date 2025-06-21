@@ -1,1 +1,24 @@
+name: Upload to Azure Blob Storage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload-to-blob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload files to Azure Blob Storage
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch \
+              --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} \
+              --destination ${{ secrets.AZURE_STORAGE_CONTAINER }} \
+              --source .
 
