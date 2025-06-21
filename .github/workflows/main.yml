@@ -18,7 +18,7 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az storage blob upload-batch \
-              --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} \
-              --destination ${{ secrets.AZURE_STORAGE_CONTAINER }} \
-              --source .
+              -d ${{ secrets.AZURE_STORAGE_CONTAINER }} \
+              -s .  \
+              --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} 
 
