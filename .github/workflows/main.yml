@@ -18,7 +18,6 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az storage blob upload-batch \
-              -d ${{ secrets.AZURE_STORAGE_CONTAINER }} \
+              -d $web \
               -s .  \
               --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} 
-
