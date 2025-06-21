@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Post Feed</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main container for the post feed application -->
+    <div class="container">
+        <!-- Header section -->
+        <h1>Post Feed</h1>
+        <!-- Post submission form -->
+        <div class="post-form">
+            <!-- Textbox for entering a new post -->
+            <textarea id="postInput" placeholder="Write your post here..."></textarea>
+            <!-- Button to submit the post -->
+            <button id="submitPost">Post</button>
+        </div>
+        <!-- Feed section where posts will be displayed -->
+        <div id="postFeed" class="feed">
+            <!-- Posts will be dynamically inserted here by script.js -->
+        </div>
+    </div>
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+/*
+    style.css
+    Styles for the Simple Post Feed web app.
+    To change the look and feel, modify the CSS classes below.
+*/
+
+body {
+    background: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 24px 20px 32px 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 24px;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+#postInput {
+    min-height: 60px;
+    resize: vertical;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#submitPost {
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#submitPost:hover {
+    background: #005fa3;
+}
+
+.feed {
+    display: flex;
+    flex-direction: column-reverse; /* Newest posts on top */
+    gap: 16px;
+}
+
+.post {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 14px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    color: #222;
+    word-break: break-word;
+    font-size: 1rem;
+}
