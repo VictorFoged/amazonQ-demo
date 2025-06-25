@@ -1,0 +1,22 @@
+name: Deploy Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    
+    env:
+      STORAGE_ACCOUNT_NAME: staticpreviewsites
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to Azure Storage
+        env:
+          STORAGE_ACCOUNT_KEY: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+        run: |
+          chmod +x ./deploy.sh
+          ./deploy.sh ${{ github.event.number }}
