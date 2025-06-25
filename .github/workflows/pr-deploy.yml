@@ -1,0 +1,183 @@
+name: Deploy Static Website on Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  STORAGE_ACCOUNT_NAME: 'staticpreviewsites'
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    outputs:
+      website-url: ${{ steps.deploy.outputs.website-url }}
+      container-name: ${{ steps.deploy.outputs.container-name }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create unique container name
+        id: container-name
+        run: |
+          # Create unique container name using PR number and short commit SHA
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          CONTAINER_NAME="pr-${PR_NUMBER}-${SHORT_SHA}"
+          # Ensure container name is lowercase and follows naming rules
+          CONTAINER_NAME=$(echo $CONTAINER_NAME | tr '[:upper:]' '[:lower:]')
+          echo "name=$CONTAINER_NAME" >> $GITHUB_OUTPUT
+          echo "Container name: $CONTAINER_NAME"
+
+
+      - name: Create blob container and upload files
+        id: deploy
+        run: |
+          CONTAINER_NAME=${{ steps.container-name.outputs.name }}
+          
+          # Create a new blob container with public read access
+          echo "Creating container: $CONTAINER_NAME"
+          az storage container create \
+            --name $CONTAINER_NAME \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --public-access blob
+
+          # Upload static files to the container
+          echo "Uploading files to container"
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.html" \
+            --overwrite true
+
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.css" \
+            --overwrite true
+
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.js" \
+            --overwrite true
+
+          # Upload any additional static assets
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.png" \
+            --overwrite true || true
+
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.jpg" \
+            --overwrite true || true
+
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.svg" \
+            --overwrite true || true
+
+          az storage blob upload-batch \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" \
+            --destination $CONTAINER_NAME \
+            --source . \
+            --pattern "*.ico" \
+            --overwrite true || true
+
+              # Construct the website URL for the main index.html file
+              WEBSITE_URL="https://${{ env.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${CONTAINER_NAME}/index.html"
+    
+              echo "website-url=$WEBSITE_URL" >> $GITHUB_OUTPUT
+              echo "container-name=$CONTAINER_NAME" >> $GITHUB_OUTPUT
+              echo "Website URL: $WEBSITE_URL"
+          
+          - name: Add deployment comment to PR
+        with:
+          script: |
+            const websiteUrl = '${{ steps.deploy.outputs.website-url }}';
+            const containerName = '${{ steps.deploy.outputs.container-name }}';
+            const prNumber = context.payload.pull_request.number;
+            
+            const body = `## 🚀 Preview Deployment
+
+            Your static website has been deployed successfully!
+
+            **Preview URL:** ${websiteUrl}
+            **Container:** \`${containerName}\`
+            **Storage Account:** \`${{ env.STORAGE_ACCOUNT_NAME }}\`
+
+            This preview will be available until the PR is closed or merged.
+
+            ---
+            *Deployed from commit \`${{ github.sha }}\`*`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body
+            });
+
+  cleanup-on-close:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    
+    steps:
+      - name: Delete container when PR is closed
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          CONTAINER_NAME="pr-${PR_NUMBER}-${SHORT_SHA}"
+          CONTAINER_NAME=$(echo $CONTAINER_NAME | tr '[:upper:]' '[:lower:]')
+          
+          echo "Deleting container: $CONTAINER_NAME"
+          az storage container delete \
+            --name $CONTAINER_NAME \
+            --account-name ${{ env.STORAGE_ACCOUNT_NAME }} \
+            --account-key "${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}" || echo "Container may not exist or already deleted"
+
+      - name: Add cleanup comment to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            
+            const body = `## 🧹 Preview Cleanup
+
+            The preview deployment for this PR has been cleaned up and the associated container has been deleted.
+
+            ---
+            *Cleanup completed automatically when PR was closed*`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body
+            });
