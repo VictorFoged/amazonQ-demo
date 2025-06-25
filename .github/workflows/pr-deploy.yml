@@ -108,16 +108,15 @@ jobs:
             --destination $CONTAINER_NAME \
             --source . \
             --pattern "*.ico" \
-            --overwrite true || true
+            --overwrite true || true          # Construct the website URL for the main index.html file
+          WEBSITE_URL="https://${{ env.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${CONTAINER_NAME}/index.html"
 
-              # Construct the website URL for the main index.html file
-              WEBSITE_URL="https://${{ env.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${CONTAINER_NAME}/index.html"
-    
-              echo "website-url=$WEBSITE_URL" >> $GITHUB_OUTPUT
-              echo "container-name=$CONTAINER_NAME" >> $GITHUB_OUTPUT
-              echo "Website URL: $WEBSITE_URL"
-          
-          - name: Add deployment comment to PR
+          echo "website-url=$WEBSITE_URL" >> $GITHUB_OUTPUT
+          echo "container-name=$CONTAINER_NAME" >> $GITHUB_OUTPUT
+          echo "Website URL: $WEBSITE_URL"
+
+      - name: Add deployment comment to PR
+        uses: actions/github-script@v7
         with:
           script: |
             const websiteUrl = '${{ steps.deploy.outputs.website-url }}';
