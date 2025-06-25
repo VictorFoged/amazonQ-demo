@@ -4,25 +4,58 @@
     To change the look and feel, modify the CSS classes below.
 */
 
+:root {
+    /* Light theme (default) */
+    --background-color: #f4f4f4;
+    --container-bg: #fff;
+    --text-color: #333;
+    --post-bg: #f9f9f9;
+    --post-text: #222;
+    --input-border: #ccc;
+    --button-bg: #ff0000;
+    --button-hover: #cc0000;
+    --button-text: #fff;
+    --shadow-color: rgba(0,0,0,0.08);
+    --post-shadow: rgba(0,0,0,0.04);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --background-color: #222;
+    --container-bg: #333;
+    --text-color: #f4f4f4;
+    --post-bg: #444;
+    --post-text: #eee;
+    --input-border: #555;
+    --button-bg: #ff0000;
+    --button-hover: #cc0000;
+    --button-text: #fff;
+    --shadow-color: rgba(0,0,0,0.2);
+    --post-shadow: rgba(0,0,0,0.1);
+}
+
 body {
-    background: #f4f4f4;
+    background: var(--background-color);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    color: var(--text-color);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 500px;
     margin: 40px auto;
-    background: #fff;
+    background: var(--container-bg);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px var(--shadow-color);
     padding: 24px 20px 32px 20px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 24px;
 }
 
@@ -38,13 +71,16 @@ h1 {
     resize: vertical;
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
 #submitPost {
-    background: #ff0000;
-    color: #fff;
+    background: var(--button-bg);
+    color: var(--button-text);
     border: none;
     border-radius: 4px;
     padding: 10px 0;
@@ -54,7 +90,7 @@ h1 {
 }
 
 #submitPost:hover {
-    background: #cc0000;
+    background: var(--button-hover);
 }
 
 .feed {
@@ -64,11 +100,82 @@ h1 {
 }
 
 .post {
-    background: #f9f9f9;
+    background: var(--post-bg);
     border-radius: 6px;
     padding: 14px 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    color: #222;
+    box-shadow: 0 1px 3px var(--post-shadow);
+    color: var(--post-text);
     word-break: break-word;
     font-size: 1rem;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    border: 2px solid var(--text-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-toggle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Theme generator section */
+.theme-generator {
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--post-bg);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.theme-generator h2 {
+    margin-top: 0;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.theme-generator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#themeInput {
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+}
+
+#generateTheme {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#generateTheme:hover {
+    background: var(--button-hover);
 }

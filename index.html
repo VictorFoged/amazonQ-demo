@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Theme toggle button with Victor Foged's image -->
+    <div class="theme-toggle" id="themeToggle">
+        <!-- Replace the src with an actual image of Victor Foged -->
+        <img src="https://via.placeholder.com/50?text=VF" alt="Theme Toggle - Victor Foged" id="themeToggleImg">
+    </div>
+
     <!-- Main container for the post feed application -->
     <div class="container">
         <!-- Header section -->
@@ -22,6 +28,15 @@
         <!-- Feed section where posts will be displayed -->
         <div id="postFeed" class="feed">
             <!-- Posts will be dynamically inserted here by script.js -->
+        </div>
+
+        <!-- AI Theme Generator Section -->
+        <div class="theme-generator">
+            <h2>AI Theme Generator</h2>
+            <div class="theme-generator-form">
+                <input type="text" id="themeInput" placeholder="Describe your theme (e.g., 'sunset beach', 'forest night')">
+                <button id="generateTheme">Generate Custom Theme</button>
+            </div>
         </div>
     </div>
     <!-- Link to external JavaScript file -->
