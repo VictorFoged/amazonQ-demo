@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-reply Feature Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-container {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .test-output {
+            background-color: #000;
+            color: #fff;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre;
+            overflow: auto;
+            height: 300px;
+        }
+        button {
+            background-color: #0000ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0000cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Auto-reply Feature Tests</h1>
+    <p>This page runs tests for the auto-reply feature implemented in the Post Feed application.</p>
+    
+    <div class="test-container">
+        <h2>Test Output</h2>
+        <div id="testOutput" class="test-output">Test results will appear here...</div>
+        <button id="runTestsButton">Run Tests</button>
+    </div>
+    
+    <!-- Include the original script first -->
+    <script src="script.js"></script>
+    
+    <!-- Override console.log to output to our test output div -->
+    <script>
+        // Save the original console methods
+        const originalConsole = {
+            log: console.log,
+            error: console.error,
+            warn: console.warn
+        };
+        
+        // Override console methods to output to our test div
+        const testOutput = document.getElementById('testOutput');
+        
+        console.log = function(...args) {
+            // Call the original method
+            originalConsole.log(...args);
+            
+            // Output to our test div
+            const message = args.join(' ');
+            testOutput.textContent += message + '\n';
+        };
+        
+        console.error = function(...args) {
+            // Call the original method
+            originalConsole.error(...args);
+            
+            // Output to our test div with error styling
+            const message = args.join(' ');
+            testOutput.textContent += '❌ ' + message + '\n';
+        };
+        
+        // Clear the test output before running tests
+        document.getElementById('runTestsButton').addEventListener('click', function() {
+            testOutput.textContent = '';
+            runTests();
+        });
+    </script>
+    
+    <!-- Include our test script -->
+    <script src="test.js"></script>
+</body>
+</html>
