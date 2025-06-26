@@ -43,7 +43,7 @@ h1 {
 }
 
 #submitPost {
-    background: #ff0000;
+    background: #0000ff;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -54,7 +54,7 @@ h1 {
 }
 
 #submitPost:hover {
-    background: #cc0000;
+    background: #0000cc;
 }
 
 .feed {
