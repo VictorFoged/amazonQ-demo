@@ -61,6 +61,27 @@ h1 {
     display: flex;
     flex-direction: column-reverse; /* Newest posts on top */
     gap: 16px;
+    position: relative; /* Added to position the logo relative to the feed */
+}
+
+/* Andel logo styling */
+.andel-logo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    padding: 6px 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 10; /* Ensure logo appears above posts */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.andel-logo:hover {
+    transform: scale(1.05);
 }
 
 .post {
