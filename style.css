@@ -23,7 +23,23 @@ body {
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+}
+
+/* Feature info styling */
+.feature-info {
+    background-color: #f0f7ff;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #d0e3f0;
+}
+
+.feature-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #467886;
 }
 
 .post-form {
@@ -71,4 +87,14 @@ h1 {
     color: #222;
     word-break: break-word;
     font-size: 1rem;
+}
+
+/* Styling for auto-reply messages */
+.auto-reply {
+    background: #f0f7ff;
+    border-left: 4px solid #467886;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 0.9rem;
+    white-space: pre-line; /* Preserve line breaks in the message */
+    color: #333;
 }
