@@ -19,8 +19,24 @@ const postFeed = document.getElementById('postFeed');
 
 // Render all posts in the feed
 function renderPosts() {
+    // Store the logo element before clearing
+    const logo = document.querySelector('.andel-logo');
+    const logoHTML = logo ? logo.innerHTML : `
+        <svg width="60" height="20" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5,10 L10,5 L15,10 L10,15 Z" fill="#0000ff" />
+            <text x="20" y="14" fill="#0000ff" font-weight="bold" font-family="Arial, sans-serif">Andel</text>
+        </svg>
+    `;
+    
     // Clear the feed
     postFeed.innerHTML = '';
+    
+    // Re-add the logo first
+    const logoDiv = document.createElement('div');
+    logoDiv.className = 'andel-logo';
+    logoDiv.innerHTML = logoHTML;
+    postFeed.appendChild(logoDiv);
+    
     // Add each post as a div
     posts.forEach((text, idx) => {
         // Create a post element
