@@ -6,12 +6,33 @@
     <title>Andel Gen AI Demo</title>
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for music control icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Main container for the post feed application -->
     <div class="container">
         <!-- Header section -->
         <h1>Post Feed</h1>
+        <!-- Music player section -->
+        <div class="music-player">
+            <audio id="backgroundMusic" loop>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="music-controls">
+                <button id="playPauseBtn" class="music-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div class="music-info">
+                    <span id="musicTitle">Background Music</span>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Post submission form -->
         <div class="post-form">
             <!-- Textbox for entering a new post -->

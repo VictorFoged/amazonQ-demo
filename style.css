@@ -26,6 +26,87 @@ h1 {
     margin-bottom: 24px;
 }
 
+/* Music Player Styles */
+.music-player {
+    background: #f0f0f0;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.music-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.music-btn {
+    background: #0000ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.music-btn:hover {
+    background: #0000cc;
+}
+
+.music-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#musicTitle {
+    font-weight: bold;
+    color: #333;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#volumeSlider {
+    flex-grow: 1;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #0000ff;
+    cursor: pointer;
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #0000ff;
+    cursor: pointer;
+    border: none;
+}
+
+/* Post Form Styles */
 .post-form {
     display: flex;
     flex-direction: column;
