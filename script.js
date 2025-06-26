@@ -6,8 +6,12 @@
 //   - #postInput: textarea for new post text
 //   - #submitPost: button to submit a new post
 //   - #postFeed: container for displaying posts
+<<<<<<< Q-DEV-issue-34-1750925192
 //   - #dancingCatContainer: container for the dancing cat animation
 //   - #energySong: audio element for the energy-themed song
+=======
+//   - #toggleWind: button to toggle wind turbine animation
+>>>>>>> main
 //
 // To change UI behavior, modify the functions below.
 
@@ -18,6 +22,7 @@ let posts = [];
 const postInput = document.getElementById('postInput');
 const submitPost = document.getElementById('submitPost');
 const postFeed = document.getElementById('postFeed');
+<<<<<<< Q-DEV-issue-34-1750925192
 const dancingCatContainer = document.getElementById('dancingCatContainer');
 const energySong = document.getElementById('energySong');
 
@@ -27,6 +32,33 @@ const energySongs = [
     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
 ];
+=======
+const toggleWindButton = document.getElementById('toggleWind');
+const blades = document.querySelector('.blades');
+
+// Wind turbine state
+let isWindy = false;
+
+// Toggle wind turbine animation
+function toggleWind() {
+    isWindy = !isWindy;
+    
+    if (isWindy) {
+        // Start animation
+        blades.classList.add('spinning');
+        toggleWindButton.textContent = 'Stop blæsevejr';
+        toggleWindButton.classList.add('active');
+    } else {
+        // Stop animation
+        blades.classList.remove('spinning');
+        toggleWindButton.textContent = 'Aktiver blæsevejr';
+        toggleWindButton.classList.remove('active');
+    }
+}
+
+// Add event listener to wind button
+toggleWindButton.addEventListener('click', toggleWind);
+>>>>>>> main
 
 // Render all posts in the feed
 function renderPosts() {
