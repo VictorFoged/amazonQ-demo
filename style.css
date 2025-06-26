@@ -26,6 +26,38 @@ h1 {
     margin-bottom: 24px;
 }
 
+/* Windmill section styling */
+.windmill-container {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.windmill-container h2 {
+    color: #333;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+}
+
+.windmill-image {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.windmill-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-caption {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 8px;
+    font-style: italic;
+}
+
 .post-form {
     display: flex;
     flex-direction: column;
