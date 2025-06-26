@@ -6,6 +6,7 @@
 //   - #postInput: textarea for new post text
 //   - #submitPost: button to submit a new post
 //   - #postFeed: container for displaying posts
+//   - #toggleWind: button to toggle wind turbine animation
 //
 // To change UI behavior, modify the functions below.
 
@@ -16,6 +17,31 @@ let posts = [];
 const postInput = document.getElementById('postInput');
 const submitPost = document.getElementById('submitPost');
 const postFeed = document.getElementById('postFeed');
+const toggleWindButton = document.getElementById('toggleWind');
+const blades = document.querySelector('.blades');
+
+// Wind turbine state
+let isWindy = false;
+
+// Toggle wind turbine animation
+function toggleWind() {
+    isWindy = !isWindy;
+    
+    if (isWindy) {
+        // Start animation
+        blades.classList.add('spinning');
+        toggleWindButton.textContent = 'Stop blæsevejr';
+        toggleWindButton.classList.add('active');
+    } else {
+        // Stop animation
+        blades.classList.remove('spinning');
+        toggleWindButton.textContent = 'Aktiver blæsevejr';
+        toggleWindButton.classList.remove('active');
+    }
+}
+
+// Add event listener to wind button
+toggleWindButton.addEventListener('click', toggleWind);
 
 // Render all posts in the feed
 function renderPosts() {

@@ -11,6 +11,65 @@ body {
     padding: 0;
 }
 
+/* Wind Turbine Styles */
+.windmill-container {
+    max-width: 500px;
+    margin: 40px auto 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 24px 20px 32px 20px;
+    text-align: center;
+}
+
+.windmill {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.blades {
+    transform-origin: 100px 120px;
+    transition: transform 0.5s ease;
+}
+
+/* Animation for the blades */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Class to be toggled with JavaScript */
+.spinning {
+    animation: rotate 2s linear infinite;
+}
+
+.wind-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s;
+}
+
+.wind-button:hover {
+    background: #45a049;
+}
+
+.wind-button.active {
+    background: #f44336;
+}
+
+/* Original Post Feed Styles */
 .container {
     max-width: 500px;
     margin: 40px auto;

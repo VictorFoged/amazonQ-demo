@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andel Gen AI Demo</title>
+    <title>Andel Vindmølle</title>
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Wind turbine section -->
+    <div class="windmill-container">
+        <h1>Andel Vindmølle</h1>
+        
+        <!-- SVG Wind Turbine -->
+        <div class="windmill">
+            <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tower -->
+                <path d="M95 300 L85 120 L115 120 L105 300 Z" fill="#888" />
+                
+                <!-- Hub -->
+                <circle cx="100" cy="120" r="10" fill="#666" />
+                
+                <!-- Blades -->
+                <g class="blades">
+                    <!-- Blade 1 -->
+                    <path d="M100 120 L160 60 L170 70 L110 130 Z" fill="#f1f1f1" />
+                    
+                    <!-- Blade 2 -->
+                    <path d="M100 120 L40 60 L30 70 L90 130 Z" fill="#f1f1f1" />
+                    
+                    <!-- Blade 3 -->
+                    <path d="M100 120 L100 40 L110 40 L110 120 Z" fill="#f1f1f1" />
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Wind control button -->
+        <button id="toggleWind" class="wind-button">Aktiver blæsevejr</button>
+    </div>
+
     <!-- Main container for the post feed application -->
     <div class="container">
         <!-- Header section -->
