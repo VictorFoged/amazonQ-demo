@@ -10,6 +10,7 @@ This project demonstrates how the future of software development could look like
 - View posts in a chronological feed (newest first)
 - Clean, responsive user interface
 - Submit posts using the button or with Ctrl+Enter keyboard shortcut
+- Display of a Vestas windmill image showcasing renewable energy technology
 
 ## Technology Stack
 
