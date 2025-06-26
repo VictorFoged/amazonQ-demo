@@ -72,3 +72,13 @@ h1 {
     word-break: break-word;
     font-size: 1rem;
 }
+
+/* Style for the energy jokes */
+.post br + br + span {
+    display: block;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #ccc;
+    color: #0066cc;
+    font-style: italic;
+}

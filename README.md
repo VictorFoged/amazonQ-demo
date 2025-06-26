@@ -10,6 +10,7 @@ This project demonstrates how the future of software development could look like
 - View posts in a chronological feed (newest first)
 - Clean, responsive user interface
 - Submit posts using the button or with Ctrl+Enter keyboard shortcut
+- Each post automatically includes a random energy-related joke
 
 ## Technology Stack
 
