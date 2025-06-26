@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Nej til atomkraft Feature</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-case {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .test-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .test-steps {
+            margin-bottom: 10px;
+        }
+        .test-expected {
+            font-style: italic;
+        }
+        .pass {
+            color: green;
+        }
+        .fail {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Cases for "Nej til atomkraft" Feature</h1>
+    
+    <div class="test-case">
+        <div class="test-title">Test Case 1: Adding "Nej til atomkraft" image</div>
+        <div class="test-steps">
+            1. Click the "Add Anti-Nuclear Image" button<br>
+            2. Click the "Post" button
+        </div>
+        <div class="test-expected">
+            Expected: A post should appear with the text "Nej til atomkraft" and the anti-nuclear power image
+        </div>
+        <div class="test-result" id="test1-result">Not run</div>
+    </div>
+    
+    <div class="test-case">
+        <div class="test-title">Test Case 2: Adding custom text with "Nej til atomkraft" image</div>
+        <div class="test-steps">
+            1. Enter custom text in the text area<br>
+            2. Click the "Add Anti-Nuclear Image" button<br>
+            3. Click the "Post" button
+        </div>
+        <div class="test-expected">
+            Expected: A post should appear with the custom text and the anti-nuclear power image
+        </div>
+        <div class="test-result" id="test2-result">Not run</div>
+    </div>
+    
+    <div class="test-case">
+        <div class="test-title">Test Case 3: Adding a post with only text</div>
+        <div class="test-steps">
+            1. Enter text in the text area<br>
+            2. Click the "Post" button
+        </div>
+        <div class="test-expected">
+            Expected: A post should appear with only the text (no image)
+        </div>
+        <div class="test-result" id="test3-result">Not run</div>
+    </div>
+    
+    <div class="test-case">
+        <div class="test-title">Test Case 4: Adding a post with only an image</div>
+        <div class="test-steps">
+            1. Enter an image URL in the image URL field<br>
+            2. Click the "Post" button
+        </div>
+        <div class="test-expected">
+            Expected: A post should appear with only the image (no text)
+        </div>
+        <div class="test-result" id="test4-result">Not run</div>
+    </div>
+    
+    <script>
+        // Instructions for manual testing
+        document.addEventListener('DOMContentLoaded', function() {
+            alert('To run these tests, please open index.html and manually perform the test steps for each test case. Then return to this page and mark each test as passed or failed.');
+            
+            // Add functionality to mark tests as passed or failed
+            const testResults = document.querySelectorAll('.test-result');
+            testResults.forEach(result => {
+                result.innerHTML = '<button class="pass-btn">Pass</button> <button class="fail-btn">Fail</button>';
+                
+                result.querySelector('.pass-btn').addEventListener('click', function() {
+                    result.innerHTML = '<span class="pass">PASSED</span>';
+                });
+                
+                result.querySelector('.fail-btn').addEventListener('click', function() {
+                    result.innerHTML = '<span class="fail">FAILED</span>';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
