@@ -6,6 +6,8 @@
 //   - #postInput: textarea for new post text
 //   - #submitPost: button to submit a new post
 //   - #postFeed: container for displaying posts
+//   - #dancingCatContainer: container for the dancing cat animation
+//   - #energySong: audio element for the energy-themed song
 //
 // To change UI behavior, modify the functions below.
 
@@ -16,6 +18,15 @@ let posts = [];
 const postInput = document.getElementById('postInput');
 const submitPost = document.getElementById('submitPost');
 const postFeed = document.getElementById('postFeed');
+const dancingCatContainer = document.getElementById('dancingCatContainer');
+const energySong = document.getElementById('energySong');
+
+// Energy-themed songs array - we'll use a free sample for demonstration
+const energySongs = [
+    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+];
 
 // Render all posts in the feed
 function renderPosts() {
@@ -32,6 +43,31 @@ function renderPosts() {
     });
 }
 
+// Function to show dancing cat and play energy song
+function showCatAndPlaySong() {
+    // Select a random energy song
+    const randomSong = energySongs[Math.floor(Math.random() * energySongs.length)];
+    energySong.src = randomSong;
+    
+    // Play the song
+    energySong.play().catch(error => {
+        console.error('Error playing the song:', error);
+        // Some browsers require user interaction before playing audio
+        console.log('Note: Some browsers require user interaction before playing audio');
+    });
+    
+    // Show the dancing cat
+    dancingCatContainer.classList.add('show-cat');
+    
+    // Hide the cat after animation completes (5 seconds)
+    setTimeout(() => {
+        dancingCatContainer.classList.remove('show-cat');
+        // Stop the song after the animation ends
+        energySong.pause();
+        energySong.currentTime = 0;
+    }, 5000);
+}
+
 // Handle post submission
 function handlePostSubmit() {
     const text = postInput.value.trim();
@@ -42,6 +78,9 @@ function handlePostSubmit() {
     postInput.value = '';
     // Re-render posts
     renderPosts();
+    
+    // Show dancing cat and play energy song
+    showCatAndPlaySong();
 }
 
 // Attach event listener to the submit button
