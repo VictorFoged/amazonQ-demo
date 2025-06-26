@@ -42,6 +42,13 @@ h1 {
     border-radius: 4px;
 }
 
+#authorInput {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 #submitPost {
     background: #0000ff;
     color: #fff;
@@ -71,4 +78,15 @@ h1 {
     color: #222;
     word-break: break-word;
     font-size: 1rem;
+}
+
+.post-author {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
+.post-content {
+    color: #222;
 }
