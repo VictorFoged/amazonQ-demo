@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Dancing Cat and Energy Song</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0055aa;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+        }
+        .failure {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test - Dancing Cat and Energy Song</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Verify DOM Elements</h2>
+        <button id="testDomElements">Run Test</button>
+        <div id="domTestResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Test Cat Animation and Song</h2>
+        <button id="testCatAndSong">Run Test</button>
+        <div id="catSongTestResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Test Post Submission with Animation</h2>
+        <button id="testPostSubmission">Run Test</button>
+        <div id="postTestResult" class="result"></div>
+    </div>
+    
+    <script>
+        // Test 1: Verify DOM Elements
+        document.getElementById('testDomElements').addEventListener('click', function() {
+            const result = document.getElementById('domTestResult');
+            
+            // Load the main page in an iframe to test its elements
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'index.html';
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Check for required elements
+                    const dancingCatContainer = doc.getElementById('dancingCatContainer');
+                    const energySong = doc.getElementById('energySong');
+                    const submitPost = doc.getElementById('submitPost');
+                    
+                    if (!dancingCatContainer) {
+                        throw new Error('Dancing cat container not found');
+                    }
+                    
+                    if (!energySong) {
+                        throw new Error('Energy song audio element not found');
+                    }
+                    
+                    if (!submitPost) {
+                        throw new Error('Submit post button not found');
+                    }
+                    
+                    result.innerHTML = '<span class="success">✓ All required DOM elements found</span>';
+                } catch (error) {
+                    result.innerHTML = '<span class="failure">✗ Test failed: ' + error.message + '</span>';
+                } finally {
+                    // Clean up
+                    document.body.removeChild(iframe);
+                }
+            };
+        });
+        
+        // Test 2: Test Cat Animation and Song
+        document.getElementById('testCatAndSong').addEventListener('click', function() {
+            const result = document.getElementById('catSongTestResult');
+            result.innerHTML = 'Testing...';
+            
+            // Load the main page in an iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = '1px solid #ddd';
+            iframe.src = 'index.html';
+            result.appendChild(iframe);
+            
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    const win = iframe.contentWindow;
+                    
+                    // Access the showCatAndPlaySong function
+                    if (typeof win.showCatAndPlaySong !== 'function') {
+                        throw new Error('showCatAndPlaySong function not found');
+                    }
+                    
+                    // Call the function to test it
+                    win.showCatAndPlaySong();
+                    
+                    // Check if cat is visible
+                    setTimeout(() => {
+                        const catContainer = doc.getElementById('dancingCatContainer');
+                        if (!catContainer.classList.contains('show-cat')) {
+                            result.innerHTML = '<span class="failure">✗ Test failed: Cat animation not triggered</span>';
+                        } else {
+                            result.innerHTML = '<span class="success">✓ Cat animation and song triggered successfully</span>';
+                        }
+                    }, 500);
+                    
+                } catch (error) {
+                    result.innerHTML = '<span class="failure">✗ Test failed: ' + error.message + '</span>';
+                }
+            };
+        });
+        
+        // Test 3: Test Post Submission with Animation
+        document.getElementById('testPostSubmission').addEventListener('click', function() {
+            const result = document.getElementById('postTestResult');
+            result.innerHTML = 'Testing...';
+            
+            // Load the main page in an iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = '1px solid #ddd';
+            iframe.src = 'index.html';
+            result.appendChild(iframe);
+            
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Fill in the post input
+                    const postInput = doc.getElementById('postInput');
+                    const submitButton = doc.getElementById('submitPost');
+                    
+                    if (!postInput || !submitButton) {
+                        throw new Error('Post input or submit button not found');
+                    }
+                    
+                    // Enter text and submit
+                    postInput.value = 'Test post for animation';
+                    submitButton.click();
+                    
+                    // Check if cat is visible and post was added
+                    setTimeout(() => {
+                        const catContainer = doc.getElementById('dancingCatContainer');
+                        const posts = doc.querySelectorAll('.post');
+                        
+                        if (!catContainer.classList.contains('show-cat')) {
+                            result.innerHTML = '<span class="failure">✗ Test failed: Cat animation not triggered on post submission</span>';
+                        } else if (posts.length === 0 || posts[0].textContent !== 'Test post for animation') {
+                            result.innerHTML = '<span class="failure">✗ Test failed: Post was not added correctly</span>';
+                        } else {
+                            result.innerHTML = '<span class="success">✓ Post submission with animation works correctly</span>';
+                        }
+                    }, 500);
+                    
+                } catch (error) {
+                    result.innerHTML = '<span class="failure">✗ Test failed: ' + error.message + '</span>';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
